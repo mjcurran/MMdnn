@@ -32,8 +32,8 @@ class TestONNX(TestKit):
     def print_intermediate_result(self, layer_name, if_transpose = False):
         # testop = tf.get_default_graph().get_operation_by_name(layer_name)
         testop = self.testop
-        with tf.Session() as sess:
-            init = tf.global_variables_initializer()
+        with tf.compat.v1.Session() as sess:
+            init = tf.compat.v1.global_variables_initializer()
             sess.run(init)
             intermediate_output = sess.run(testop, feed_dict = {self.input : self.data})
 

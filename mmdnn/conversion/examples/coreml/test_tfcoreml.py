@@ -155,7 +155,7 @@ class CorrectnessTest(unittest.TestCase):
     sequence_inputs - dict of input names that are sequences for CoreML input
     """
     # Load TensorFlow model
-    tf.reset_default_graph()
+    tf.compat.v1.reset_default_graph()
     graph_def = graph_pb2.GraphDef()
     with open(tf_model_path, "rb") as f:
         graph_def.ParseFromString(f.read())
@@ -164,7 +164,7 @@ class CorrectnessTest(unittest.TestCase):
     if type(data_modes) is str:
       data_modes = [data_modes] * len(input_tensors)
 
-    with tf.Session(graph = g) as sess:
+    with tf.compat.v1.Session(graph = g) as sess:
       # Prepare inputs
       feed_dict = {}
       for idx, in_tensor in enumerate(input_tensors):
@@ -220,12 +220,12 @@ class CorrectnessTest(unittest.TestCase):
     img_tf[:,:,:,2] = self.image_scale * img_tf[:,:,:,2] + self.blue_bias
 
     #evaluate the TF model
-    tf.reset_default_graph()
+    tf.compat.v1.reset_default_graph()
     graph_def = graph_pb2.GraphDef()
     with open(tf_model_path, "rb") as f:
         graph_def.ParseFromString(f.read())
     g = tf.import_graph_def(graph_def)
-    with tf.Session(graph=g) as sess:
+    with tf.compat.v1.Session(graph=g) as sess:
       image_input_tensor = sess.graph.get_tensor_by_name('import/' + input_tensor_name)
       output = sess.graph.get_tensor_by_name('import/' + output_tensor_name)
       tf_out = sess.run(output,feed_dict={image_input_tensor: img_tf})
@@ -549,12 +549,12 @@ def _test_coreml_model_image_input(tf_model_path, coreml_model,
     img_tf[:,:,:,2] = 2.0/255 * img_tf[:,:,:,2] - 1
 
     #evaluate the TF model
-    tf.reset_default_graph()
+    tf.compat.v1.reset_default_graph()
     graph_def = graph_pb2.GraphDef()
     with open(tf_model_path, "rb") as f:
         graph_def.ParseFromString(f.read())
     g = tf.import_graph_def(graph_def)
-    with tf.Session(graph=g) as sess:
+    with tf.compat.v1.Session(graph=g) as sess:
       image_input_tensor = sess.graph.get_tensor_by_name('import/' + input_tensor_name)
       output = sess.graph.get_tensor_by_name('import/' + output_tensor_name)
       tf_out = sess.run(output,feed_dict={image_input_tensor: img_tf})

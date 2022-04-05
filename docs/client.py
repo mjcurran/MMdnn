@@ -17,10 +17,10 @@ from tensorflow_serving.apis import prediction_service_pb2
 
 
 # Command line arguments
-tf.app.flags.DEFINE_string('server', 'localhost:9000',
+tf.compat.v1.app.flags.DEFINE_string('server', 'localhost:9000',
                            'PredictionService host:port')
-tf.app.flags.DEFINE_string('image', '', 'path to image in JPEG format')
-FLAGS = tf.app.flags.FLAGS
+tf.compat.v1.app.flags.DEFINE_string('image', '', 'path to image in JPEG format')
+FLAGS = tf.compat.v1.app.flags.FLAGS
 
 
 def main(_):
@@ -28,10 +28,10 @@ def main(_):
     channel = implementations.insecure_channel(host, int(port))
     stub = prediction_service_pb2.beta_create_PredictionService_stub(channel)
     # Send request
-    image = tf.gfile.FastGFile(FLAGS.image, 'rb').read()
+    image = tf.compat.v1.gfile.FastGFile(FLAGS.image, 'rb').read()
     request = predict_pb2.PredictRequest()
     request.model_spec.name = 'tensorflow-serving'
-    request.model_spec.signature_name = tf.saved_model.signature_constants.DEFAULT_SERVING_SIGNATURE_DEF_KEY
+    request.model_spec.signature_name = tf.saved_model.DEFAULT_SERVING_SIGNATURE_DEF_KEY
     request.inputs['image'].CopyFrom(tf.contrib.util.make_tensor_proto(image))
     #request.inputs['input'].CopyFrom()
 
@@ -40,4 +40,4 @@ def main(_):
 
 
 if __name__ == '__main__':
-    tf.app.run()
+    tf.compat.v1.app.run()

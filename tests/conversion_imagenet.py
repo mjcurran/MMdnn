@@ -383,8 +383,8 @@ class TestModels(CorrectnessTest):
         else:
             input_data = np.load(test_input_path)
 
-        with tf.Session() as sess:
-            init = tf.global_variables_initializer()
+        with tf.compat.v1.Session() as sess:
+            init = tf.compat.v1.global_variables_initializer()
             sess.run(init)
             predict = sess.run(model_tf, feed_dict = {input_tf : input_data})
         del model_converted

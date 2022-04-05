@@ -15,16 +15,16 @@ from mmdnn.conversion.examples.imagenet_test import TestKit
 slim = tf.contrib.slim
 
 input_layer_map = {
-    'vgg16'         : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
-    'vgg19'         : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
-    'inception_v1'  : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
-    'inception_v2'  : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
-    'inception_v3'  : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
-    'resnet50'      : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
-    'resnet_v1_101' : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
-    'resnet101'     : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
-    'resnet152'     : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
-    'resnet200'     : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
+    'vgg16'         : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
+    'vgg19'         : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
+    'inception_v1'  : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
+    'inception_v2'  : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
+    'inception_v3'  : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
+    'resnet50'      : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
+    'resnet_v1_101' : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
+    'resnet101'     : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
+    'resnet152'     : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
+    'resnet200'     : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
 }
 
 arg_scopes_map = {
@@ -76,13 +76,13 @@ def _main():
         logits, endpoints = networks_map[args.network]()(data_input, num_classes=num_classes, is_training=False)
         labels = tf.squeeze(logits)
 
-    init = tf.global_variables_initializer()
+    init = tf.compat.v1.global_variables_initializer()
 
-    with tf.Session() as sess:
-        writer = tf.summary.FileWriter('./graphs', sess.graph)
+    with tf.compat.v1.Session() as sess:
+        writer = tf.compat.v1.summary.FileWriter('./graphs', sess.graph)
         writer.close()
         sess.run(init)
-        saver = tf.train.Saver()
+        saver = tf.compat.v1.train.Saver()
         saver.restore(sess, args.checkpoint)
         save_path = saver.save(sess, "./imagenet_{}.ckpt".format(args.network))
         print("Model saved in file: %s" % save_path)

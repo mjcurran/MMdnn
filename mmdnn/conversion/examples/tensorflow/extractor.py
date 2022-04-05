@@ -34,7 +34,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : 'vgg_16.ckpt',
             'builder'     : lambda : vgg.vgg_16,
             'arg_scope'   : vgg.vgg_arg_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
             'num_classes' : 1000,
         },
         'vgg19' : {
@@ -42,7 +42,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : 'vgg_19.ckpt',
             'builder'     : lambda : vgg.vgg_19,
             'arg_scope'   : vgg.vgg_arg_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
             'num_classes' : 1000,
         },
         'inception_v1' : {
@@ -50,7 +50,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : 'inception_v1.ckpt',
             'builder'     : lambda : inception.inception_v1,
             'arg_scope'   : inception.inception_v3_arg_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
             'num_classes' : 1001,
         },
         'inception_v1_frozen' : {
@@ -67,7 +67,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : 'inception_v3.ckpt',
             'builder'     : lambda : inception.inception_v3,
             'arg_scope'   : inception.inception_v3_arg_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
             'num_classes' : 1001,
         },
         'inception_v3_frozen' : {
@@ -84,7 +84,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : 'resnet_v1_50.ckpt',
             'builder'     : lambda : resnet_v1.resnet_v1_50,
             'arg_scope'   : resnet_v2.resnet_arg_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
             'num_classes' : 1000,
         },
         'resnet_v1_152' : {
@@ -92,7 +92,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : 'resnet_v1_152.ckpt',
             'builder'     : lambda : resnet_v1.resnet_v1_152,
             'arg_scope'   : resnet_v2.resnet_arg_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
             'num_classes' : 1000,
         },
         'resnet_v2_50' : {
@@ -100,7 +100,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : 'resnet_v2_50.ckpt',
             'builder'     : lambda : resnet_v2.resnet_v2_50,
             'arg_scope'   : resnet_v2.resnet_arg_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
             'num_classes' : 1001,
         },
         'resnet_v2_101' : {
@@ -108,7 +108,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : 'resnet_v2_101.ckpt',
             'builder'     : lambda : resnet_v2.resnet_v2_101,
             'arg_scope'   : resnet_v2.resnet_arg_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
             'num_classes' : 1001,
         },
         'resnet_v2_152' : {
@@ -116,7 +116,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : 'resnet_v2_152.ckpt',
             'builder'     : lambda : resnet_v2.resnet_v2_152,
             'arg_scope'   : resnet_v2.resnet_arg_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
             'num_classes' : 1001,
         },
         'resnet_v2_200' : {
@@ -124,7 +124,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : 'resnet_v2_200.ckpt',
             'builder'     : lambda : resnet_v2.resnet_v2_200,
             'arg_scope'   : resnet_v2.resnet_arg_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
             'num_classes' : 1001,
         },
         'mobilenet_v1_1.0' : {
@@ -132,7 +132,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : 'mobilenet_v1_1.0_224.ckpt',
             'builder'     : lambda : mobilenet_v1.mobilenet_v1,
             'arg_scope'   : mobilenet_v1.mobilenet_v1_arg_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
             'num_classes' : 1001,
         },
         'mobilenet_v1_1.0_frozen' : {
@@ -149,7 +149,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : 'mobilenet_v2_1.0_224.ckpt',
             'builder'     : lambda : mobilenet_v2.mobilenet,
             'arg_scope'   : mobilenet_v2.training_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 224, 224, 3]),
             'num_classes' : 1001,
         },
         'inception_resnet_v2' : {
@@ -157,7 +157,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : 'inception_resnet_v2_2016_08_30.ckpt',
             'builder'     : lambda : inception_resnet_v2.inception_resnet_v2,
             'arg_scope'   : inception_resnet_v2.inception_resnet_v2_arg_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 299, 299, 3]),
             'num_classes' : 1001,
         },
         'nasnet-a_large' : {
@@ -165,7 +165,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : 'model.ckpt',
             'builder'     : lambda : nasnet.build_nasnet_large,
             'arg_scope'   : nasnet.nasnet_large_arg_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 331, 331, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 331, 331, 3]),
             'num_classes' : 1001,
         },
         'facenet' : {
@@ -173,7 +173,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    : '20180408-102900/model-20180408-102900.ckpt-90',
             'builder'     : lambda : inception_resnet_v1.inception_resnet_v1,
             'arg_scope'   : inception_resnet_v1.inception_resnet_v1_arg_scope,
-            'input'       : lambda : tf.placeholder(name='input', dtype=tf.float32, shape=[None, 160, 160, 3]),
+            'input'       : lambda : tf.compat.v1.placeholder(name='input', dtype=tf.float32, shape=[None, 160, 160, 3]),
             'feed_dict'   : lambda img: {'input:0':img,'phase_train:0':False},
             'num_classes' : 0,
         },
@@ -191,7 +191,7 @@ class tensorflow_extractor(base_extractor):
             'filename'    :'tf_rnn/tf_lstm_gru_stacked.ckpt',
             'builder'     :lambda: test_rnn.create_symbol,
             'arg_scope'   :test_rnn.dummy_arg_scope,
-            'input'       :lambda: tf.placeholder(name='input', dtype=tf.int32, shape=[None, 150]),
+            'input'       :lambda: tf.compat.v1.placeholder(name='input', dtype=tf.int32, shape=[None, 150]),
             'feed_dict'   :lambda x:{'input:0': x},
             'num_classes' : 0
         }
@@ -213,10 +213,10 @@ class tensorflow_extractor(base_extractor):
                 labels = tf.squeeze(logits, name='MMdnn_Output')
         
 
-        init = tf.global_variables_initializer()
-        with tf.Session() as sess:
+        init = tf.compat.v1.global_variables_initializer()
+        with tf.compat.v1.Session() as sess:
             sess.run(init)
-            saver = tf.train.Saver()
+            saver = tf.compat.v1.train.Saver()
             saver.restore(sess, path + cls.architecture_map[architecture]['filename'])
             save_path = saver.save(sess, path + "imagenet_{}.ckpt".format(architecture))
             print("Model saved in file: %s" % save_path)
@@ -245,7 +245,7 @@ class tensorflow_extractor(base_extractor):
             if not architecture_file:
                 return None
 
-            tf.reset_default_graph()
+            tf.compat.v1.reset_default_graph()
 
             if 'ckpt' in cls.architecture_map[architecture]['filename']:
                 cls.handle_checkpoint(architecture, path)
@@ -283,8 +283,8 @@ class tensorflow_extractor(base_extractor):
                 tf_model_path = cls.architecture_map[architecture_]['filename']
                 with open(path + tf_model_path, 'rb') as f:
                     serialized = f.read()
-                tf.reset_default_graph()
-                original_gdef = tf.GraphDef()
+                tf.compat.v1.reset_default_graph()
+                original_gdef = tf.compat.v1.GraphDef()
                 original_gdef.ParseFromString(serialized)
                 tf_output_name =  cls.architecture_map[architecture_]['tensor_out']
                 tf_input_name =  cls.architecture_map[architecture_]['tensor_in']
@@ -292,7 +292,7 @@ class tensorflow_extractor(base_extractor):
 
                 with tf.Graph().as_default() as g:
                     tf.import_graph_def(original_gdef, name='')
-                with tf.Session(graph = g) as sess:
+                with tf.compat.v1.Session(graph = g) as sess:
                     tf_out = sess.run(tf_output_name[0], feed_dict=feed_dict(input_data)) # temporarily think the num of out nodes is one
                 predict = np.squeeze(tf_out)
                 return predict
@@ -306,10 +306,10 @@ class tensorflow_extractor(base_extractor):
                         is_training=False)
                     labels = tf.squeeze(logits)
 
-                init = tf.global_variables_initializer()
-                with tf.Session() as sess:
+                init = tf.compat.v1.global_variables_initializer()
+                with tf.compat.v1.Session() as sess:
                     sess.run(init)
-                    saver = tf.train.Saver()
+                    saver = tf.compat.v1.train.Saver()
                     saver.restore(sess, path + cls.architecture_map[architecture]['filename'])
                     predict = sess.run(logits, feed_dict = {data_input : input_data})
 

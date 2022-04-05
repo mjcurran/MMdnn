@@ -27,8 +27,8 @@ class TestTF(TestKit):
 
 
     def print_result(self):
-        with tf.Session() as sess:
-            init = tf.global_variables_initializer()
+        with tf.compat.v1.Session() as sess:
+            init = tf.compat.v1.global_variables_initializer()
             sess.run(init)
             predict = sess.run(self.model, feed_dict = {self.input : self.data})
 
@@ -38,8 +38,8 @@ class TestTF(TestKit):
     def print_intermediate_result(self, layer_name, if_transpose = False):
         # testop = tf.get_default_graph().get_operation_by_name(layer_name)
         testop = self.testop
-        with tf.Session() as sess:
-            init = tf.global_variables_initializer()
+        with tf.compat.v1.Session() as sess:
+            init = tf.compat.v1.global_variables_initializer()
             sess.run(init)
             intermediate_output = sess.run(testop, feed_dict = {self.input : self.data})
 
@@ -59,24 +59,24 @@ class TestTF(TestKit):
     def dump(self, path = None):
         dump_tag = self.args.dump_tag
         if dump_tag == 'SERVING':
-            tag_list = [tf.saved_model.tag_constants.SERVING]
+            tag_list = [tf.saved_model.SERVING]
         else:
-            tag_list = [tf.saved_model.tag_constants.TRAINING]
+            tag_list = [tf.saved_model.TRAINING]
 
         if path is None: path = self.args.dump
-        with tf.Session() as sess:
-            sess.run(tf.global_variables_initializer())
+        with tf.compat.v1.Session() as sess:
+            sess.run(tf.compat.v1.global_variables_initializer())
 
-            builder = tf.saved_model.builder.SavedModelBuilder(path)
+            builder = tf.compat.v1.saved_model.builder.SavedModelBuilder(path)
 
-            tensor_info_input = tf.saved_model.utils.build_tensor_info(self.input)
-            tensor_info_output = tf.saved_model.utils.build_tensor_info(self.model)
+            tensor_info_input = tf.compat.v1.saved_model.utils.build_tensor_info(self.input)
+            tensor_info_output = tf.compat.v1.saved_model.utils.build_tensor_info(self.model)
 
             prediction_signature = (
-                tf.saved_model.signature_def_utils.build_signature_def(
+                tf.compat.v1.saved_model.signature_def_utils.build_signature_def(
                     inputs={'input': tensor_info_input},
                     outputs={'output': tensor_info_output},
-                    method_name=tf.saved_model.signature_constants.PREDICT_METHOD_NAME
+                    method_name=tf.saved_model.PREDICT_METHOD_NAME
                 )
             )
 
@@ -84,7 +84,7 @@ class TestTF(TestKit):
                 sess,
                 tag_list,
                 signature_def_map={
-                    tf.saved_model.signature_constants.DEFAULT_SERVING_SIGNATURE_DEF_KEY: prediction_signature
+                    tf.saved_model.DEFAULT_SERVING_SIGNATURE_DEF_KEY: prediction_signature
                 }
             )
 

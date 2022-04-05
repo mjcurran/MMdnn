@@ -113,8 +113,8 @@ def yolo_eval(yolo_outputs,
     max_boxes_tensor = K.constant(max_boxes, dtype='int32')
     for i in range(num_classes):
         # TODO: use keras backend instead of tf.
-        class_boxes = tf.boolean_mask(boxes, mask[:, i])
-        class_box_scores = tf.boolean_mask(box_scores[:, i], mask[:, i])
+        class_boxes = tf.boolean_mask(tensor=boxes, mask=mask[:, i])
+        class_box_scores = tf.boolean_mask(tensor=box_scores[:, i], mask=mask[:, i])
         nms_index = tf.image.non_max_suppression(
             class_boxes, class_box_scores, max_boxes_tensor, iou_threshold=iou_threshold)
         class_boxes = K.gather(class_boxes, nms_index)

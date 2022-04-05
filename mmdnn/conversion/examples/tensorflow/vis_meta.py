@@ -25,9 +25,9 @@ def _get_parser():
 
 
 def visualize(ckpt, logdir):
-    with tf.Session() as sess:
-        tf.train.import_meta_graph(ckpt)
-        train_writer = tf.summary.FileWriter(logdir)
+    with tf.compat.v1.Session() as sess:
+        tf.compat.v1.train.import_meta_graph(ckpt)
+        train_writer = tf.compat.v1.summary.FileWriter(logdir)
         train_writer.add_graph(sess.graph)
         train_writer.close()
 

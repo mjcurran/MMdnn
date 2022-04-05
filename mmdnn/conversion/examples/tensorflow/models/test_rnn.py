@@ -12,11 +12,11 @@ def create_symbol(X, num_classes=0, is_training=False, CUDNN=False,
     word_list = tf.unstack(word_vectors, axis=1)
     
     if not CUDNN:
-        cell1 = tf.contrib.rnn.LSTMCell(nhid)
-        cell2 = tf.contrib.rnn.GRUCell(nhid)
-        stacked_cell = tf.nn.rnn_cell.MultiRNNCell([cell1, cell2])
-        outputs, states = tf.nn.static_rnn(stacked_cell, word_list, dtype=tf.float32)
-        logits = tf.layers.dense(outputs[-1], 2, activation=None, name='output')
+        cell1 = tf.compat.v1.nn.rnn_cell.LSTMCell(nhid)
+        cell2 = tf.compat.v1.nn.rnn_cell.GRUCell(nhid)
+        stacked_cell = tf.compat.v1.nn.rnn_cell.MultiRNNCell([cell1, cell2])
+        outputs, states = tf.compat.v1.nn.static_rnn(stacked_cell, word_list, dtype=tf.float32)
+        logits = tf.compat.v1.layers.dense(outputs[-1], 2, activation=None, name='output')
     else:
         # Using cuDNN since vanilla RNN
         from tensorflow.contrib.cudnn_rnn.python.ops import cudnn_rnn_ops
@@ -25,12 +25,12 @@ def create_symbol(X, num_classes=0, is_training=False, CUDNN=False,
                                             input_size=edim, 
                                             input_mode='linear_input')
         params_size_t = cudnn_cell.params_size()
-        params = tf.Variable(tf.random_uniform([params_size_t], -0.1, 0.1), validate_shape=False)   
+        params = tf.Variable(tf.random.uniform([params_size_t], -0.1, 0.1), validate_shape=False)   
         input_h = tf.Variable(tf.zeros([1, batchs, nhid]))
         outputs, states = cudnn_cell(input_data=word_list,
                                      input_h=input_h,
                                      params=params)
-        logits = tf.layers.dense(outputs[-1], 2, activation=None, name='output')
+        logits = tf.compat.v1.layers.dense(outputs[-1], 2, activation=None, name='output')
     
     return logits, logits
 
